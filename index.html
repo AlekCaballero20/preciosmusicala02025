@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precios Musicala 2025</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #F4F4F4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #3949AB;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .filter-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-container select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        .toggle-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-buttons button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #3949AB;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-buttons button.active {
+            background-color: #1E88E5;
+        }
+
+        .toggle-buttons button:hover {
+            background-color: #1E88E5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #CCC;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #3949AB;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #F9F9F9;
+        }
+
+        tr:hover {
+            background: #DCE775;
+        }
+
+        .logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3949AB;
+            margin-top: 20px;
+            border-bottom: 2px solid #3949AB;
+            padding-bottom: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-top: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="https://static.wixstatic.com/media/85afce_3adb3865c88a492b93a8bf2dc69049c3~mv2.png" alt="Logo Musicala">
+
+    <div class="header">
+        <h1>💵 Precios Musicala 2025</h1>
+        <p>Servicios en Sede, Hogar y Virtual</p>
+    </div>
+
+    <div class="container">
+        <!-- Filtro por categoría -->
+        <div class="filter-container">
+            <label for="categoryFilter">Filtrar por categoría:</label>
+            <select id="categoryFilter" onchange="filterCategory()">
+                <option value="all">Todas las categorías</option>
+                <option value="personalizado">Personalizado</option>
+                <option value="musifamiliar2P">Musifamiliar 2P</option>
+                <option value="musifamiliarG">Musifamiliar G</option>
+                <option value="cursoLibre">Curso Libre</option>
+                <option value="preuniversitario">Preuniversitario</option>
+                <option value="tallerColectivo">Taller Colectivo</option>
+                <option value="musivacacional">Musivacacional</option>
+                <option value="personalizadoIntensivo">Personalizado Intensivo</option>
+                <option value="hogarIntensivo">Hogar Intensivo</option>
+                <option value="cursosDeFormacion">Cursos de Formación</option>
+                <option value="musicalaSpaces">Musicala Spaces</option>
+                <option value="hogar">Hogar</option>
+                <option value="hogar2P">Hogar 2P</option>
+                <option value="hogarG">Hogar G</option>
+                <option value="virtual">Virtual</option>
+                <option value="autoMusicala">AutoMusicala</option>
+            </select>
+        </div>
+
+        <!-- Botones para alternar -->
+        <div class="toggle-buttons">
+            <button id="oldStudentsBtn" class="active" onclick="showPrices('old')">Antiguos/Convenios</button>
+            <button id="newStudentsBtn" onclick="showPrices('new')">Estudiantes Nuevos</button>
+        </div>
+
+        <!-- Contenedores para las categorías -->
+        <div id="personalizadoTable"></div>
+        <div id="musifamiliar2PTable"></div>
+        <div id="musifamiliarGTable"></div>
+        <div id="cursoLibreTable"></div>
+        <div id="preuniversitarioTable"></div>
+        <div id="tallerColectivoTable"></div>
+        <div id="musivacacionalTable"></div>
+        <div id="personalizadoIntensivoTable"></div>
+        <div id="hogarIntensivoTable"></div>
+        <div id="cursosDeFormacionTable"></div>
+        <div id="musicalaSpacesTable"></div>
+        <div id="hogarTable"></div>
+        <div id="hogar2PTable"></div>
+        <div id="hogarGTable"></div>
+        <div id="virtualTable"></div>
+        <div id="autoMusicalaTable"></div>
+    </div>
+
+    <div class="footer">
+        © Musicala 2025. Todos los derechos reservados.
+    </div>
+
+    <script>
+        const prices = {
+            personalizado: {
+        old: [
+            { servicio: "Musicala Sede P CP", precio: "$57.000" },
+            { servicio: "Musicala Sede P CI", precio: "$78.000" },
+            { servicio: "Musicala Sede P P4", precio: "$280.000" },
+            { servicio: "Musicala Sede P P8", precio: "$536.000" },
+            { servicio: "Musicala Sede P P12", precio: "$762.000" },
+            { servicio: "Musicala Sede P P24", precio: "$1.438.000" }
+        ],
+        new: [
+            { servicio: "Musicala Sede P CP", precio: "$60.000" },
+            { servicio: "Musicala Sede P CI", precio: "$82.000" },
+            { servicio: "Musicala Sede P P4", precio: "$297.000" },
+            { servicio: "Musicala Sede P P8", precio: "$564.000" },
+            { servicio: "Musicala Sede P P12", precio: "$802.000" },
+            { servicio: "Musicala Sede P P24", precio: "$1.514.000" }
+        ]
+    },
+    musifamiliar2P: {
+        old: [
+            { servicio: "Musifamiliar Sede 2P CP", precio: "$80.000" },
+            { servicio: "Musifamiliar Sede 2P CI", precio: "$110.000" },
+            { servicio: "Musifamiliar Sede 2P P4", precio: "$395.000" },
+            { servicio: "Musifamiliar Sede 2P P8", precio: "$752.000" },
+            { servicio: "Musifamiliar Sede 2P P12", precio: "$1.066.000" },
+            { servicio: "Musifamiliar Sede 2P P24", precio: "$2.014.000" }
+        ],
+        new: [
+            { servicio: "Musifamiliar Sede 2P CP", precio: "$84.000" },
+            { servicio: "Musifamiliar Sede 2P CI", precio: "$115.000" },
+            { servicio: "Musifamiliar Sede 2P P4", precio: "$416.000" },
+            { servicio: "Musifamiliar Sede 2P P8", precio: "$790.000" },
+            { servicio: "Musifamiliar Sede 2P P12", precio: "$1.122.000" },
+            { servicio: "Musifamiliar Sede 2P P24", precio: "$2.120.000" }
+        ]
+    },
+    musifamiliarG: {
+        old: [
+            { servicio: "Musifamiliar Sede G CP", precio: "$102.000" },
+            { servicio: "Musifamiliar Sede G CI", precio: "$140.000" },
+            { servicio: "Musifamiliar Sede G P4", precio: "$508.000" },
+            { servicio: "Musifamiliar Sede G P8", precio: "$965.000" },
+            { servicio: "Musifamiliar Sede G P12", precio: "$1.066.000" },
+            { servicio: "Musifamiliar Sede G P24", precio: "$2.014.000" }
+        ],
+        new: [
+            { servicio: "Musifamiliar Sede G CP", precio: "$107.000" },
+            { servicio: "Musifamiliar Sede G CI", precio: "$147.000" },
+            { servicio: "Musifamiliar Sede G P4", precio: "$535.000" },
+            { servicio: "Musifamiliar Sede G P8", precio: "$1.016.000" },
+            { servicio: "Musifamiliar Sede G P12", precio: "$1.122.000" },
+            { servicio: "Musifamiliar Sede G P24", precio: "$2.120.000" }
+        ]
+    },
+    cursoLibre: {
+        old: [
+            { servicio: "Musicala Sede CL CP", precio: "$32.000" },
+            { servicio: "Musicala Sede CL CI", precio: "$44.000" },
+            { servicio: "Musicala Sede CL P4", precio: "$156.000" },
+            { servicio: "Musicala Sede CL P8", precio: "$315.000" },
+            { servicio: "Musicala Sede CL P12", precio: "$447.000" },
+            { servicio: "Musicala Sede CL P24", precio: "$844.000" }
+        ],
+        new: [
+            { servicio: "Musicala Sede CL CP", precio: "$32.000" },
+            { servicio: "Musicala Sede CL CI", precio: "$43.000" },
+            { servicio: "Musicala Sede CL P4", precio: "$156.000" },
+            { servicio: "Musicala Sede CL P8", precio: "$297.000" },
+            { servicio: "Musicala Sede CL P12", precio: "$421.000" },
+            { servicio: "Musicala Sede CL P24", precio: "$795.000" }
+        ]
+    },
+    preuniversitario: {
+        old: [
+            { servicio: "Musicala Preuniversitario Grupal 1 Ciclo", precio: "$1.202.000" },
+            { servicio: "Musicala Preuniversitario Grupal 2 Ciclos", precio: "$2.185.000" },
+            { servicio: "Musicala Preuniversitario Personalizado 1 Ciclo", precio: "$1.786.000" },
+            { servicio: "Musicala Preuniversitario Personalizado 2 Ciclos", precio: "$3.247.000" }
+        ],
+        new: [
+            { servicio: "Musicala Preuniversitario Grupal 1 Ciclo", precio: "$1.202.000" },
+            { servicio: "Musicala Preuniversitario Grupal 2 Ciclos", precio: "$2.185.000" },
+            { servicio: "Musicala Preuniversitario Personalizado 1 Ciclo", precio: "$1.786.000" },
+            { servicio: "Musicala Preuniversitario Personalizado 2 Ciclos", precio: "$3.247.000" }
+        ]
+    },
+    tallerColectivo: {
+        old: [
+            { servicio: "Musicala Taller Colectivo Individual 1H", precio: "$160.000" },
+            { servicio: "Musicala Taller Colectivo Individual 2H", precio: "$304.000" },
+            { servicio: "Musicala Taller Colectivo 4H", precio: "$546.000" },
+            { servicio: "Musicala Taller Colectivo 12H", precio: "$1.392.000" },
+            { servicio: "Musicala Taller Colectivo 24H", precio: "$2.227.000" }
+        ],
+        new: [
+            { servicio: "Musicala Taller Colectivo Individual 1H", precio: "$160.000" },
+            { servicio: "Musicala Taller Colectivo Individual 2H", precio: "$304.000" },
+            { servicio: "Musicala Taller Colectivo 4H", precio: "$546.000" },
+            { servicio: "Musicala Taller Colectivo 12H", precio: "$1.392.000" },
+            { servicio: "Musicala Taller Colectivo 24H", precio: "$2.227.000" }
+        ]
+    },
+    musivacacional: {
+        old: [
+            { servicio: "Musivacacional P16", precio: "$424.000" },
+            { servicio: "Musivacacional P16 Descuento más de 1 semana", precio: "$340.000" },
+            { servicio: "Musivacacional P16 Descuento hermanos", precio: "$212.000" },
+            { servicio: "Musivacacional P20", precio: "$477.000" },
+            { servicio: "Musivacacional P20 Descuento más de 1 semana", precio: "$382.000" },
+            { servicio: "Musivacacional P20 Descuento hermanos", precio: "$239.000" }
+        ],
+        new: [
+            { servicio: "Musivacacional P16", precio: "$424.000" },
+            { servicio: "Musivacacional P16 Descuento más de 1 semana", precio: "$340.000" },
+            { servicio: "Musivacacional P16 Descuento hermanos", precio: "$212.000" },
+            { servicio: "Musivacacional P20", precio: "$477.000" },
+            { servicio: "Musivacacional P20 Descuento más de 1 semana", precio: "$382.000" },
+            { servicio: "Musivacacional P20 Descuento hermanos", precio: "$239.000" }
+        ]
+    },
+    personalizadoIntensivo: {
+        old: [
+            { servicio: "Personalizado Intensivo P4", precio: "$238.000" },
+            { servicio: "Personalizado Intensivo P8", precio: "$452.000" },
+            { servicio: "Personalizado Intensivo P12", precio: "$642.000" },
+            { servicio: "Personalizado Intensivo P24", precio: "$1.211.000" }
+        ],
+        new: [
+            { servicio: "Personalizado Intensivo P4", precio: "$268.000" },
+            { servicio: "Personalizado Intensivo P8", precio: "$508.000" },
+            { servicio: "Personalizado Intensivo P12", precio: "$722.000" },
+            { servicio: "Personalizado Intensivo P24", precio: "$1.363.000" }
+        ]
+    },
+    hogarIntensivo: {
+        old: [
+            { servicio: "Hogar Intensivo P P4", precio: "$316.000" },
+            { servicio: "Hogar intensivo P P8", precio: "$600.000" },
+            { servicio: "Hogar Intensivo P P12", precio: "$852.000" },
+            { servicio: "Hogar Intensivo P P24", precio: "$1.609.000" }
+        ],
+        new: [
+            { servicio: "Hogar Intensivo P P4", precio: "$355.000" },
+            { servicio: "Hogar Intensivo P P8", precio: "$675.000" },
+            { servicio: "Hogar Intensivo P P12", precio: "$959.000" },
+            { servicio: "Hogar Intensivo P P24", precio: "$1.810.000" }
+        ]
+    },
+    cursosDeFormacion: {
+        old: [
+            { servicio: "Musicala CF 1 ciclo Música", precio: "$572.000" },
+            { servicio: "Musicala CF 2 ciclos Música", precio: "$1.040.000" }
+        ],
+        new: [
+            { servicio: "Musicala CF 1 ciclo Música", precio: "$602.000" },
+            { servicio: "Musicala CF 2 ciclos Música", precio: "$1.094.000" }
+        ]
+    },
+    musicalaSpaces: {
+        old: [
+            { servicio: "MSP 1 (Lunes a Viernes)", horas: "1 hora", precio: "$42.000" },
+            { servicio: "MSP 8 (Lunes a Viernes)", horas: "8 horas", precio: "$336.000" },
+            { servicio: "MSP 24 (Lunes a Viernes)", horas: "24 horas", precio: "$1.008.000" },
+            { servicio: "MSP 48 (Lunes a Viernes)", horas: "48 horas", precio: "$2.016.000" },
+            { servicio: "MSP 1 (Sábados, Domingos y Festivos)", horas: "1 hora", precio: "$68.000" },
+            { servicio: "MSP 8 (Sábados, Domingos y Festivos)", horas: "8 horas", precio: "$544.000" },
+            { servicio: "MSP 24 (Sábados, Domingos y Festivos)", horas: "24 horas", precio: "$1.632.000" },
+            { servicio: "MSP 48 (Sábados, Domingos y Festivos)", horas: "48 horas", precio: "$3.264.000" }
+        ],
+        new: [
+            { servicio: "MSP 1 (Lunes a Viernes)", horas: "1 hora", precio: "$42.000" },
+            { servicio: "MSP 8 (Lunes a Viernes)", horas: "8 horas", precio: "$336.000" },
+            { servicio: "MSP 24 (Lunes a Viernes)", horas: "24 horas", precio: "$1.008.000" },
+            { servicio: "MSP 48 (Lunes a Viernes)", horas: "48 horas", precio: "$2.016.000" },
+            { servicio: "MSP 1 (Sábados, Domingos y Festivos)", horas: "1 hora", precio: "$68.000" },
+            { servicio: "MSP 8 (Sábados, Domingos y Festivos)", horas: "8 horas", precio: "$544.000" },
+            { servicio: "MSP 24 (Sábados, Domingos y Festivos)", horas: "24 horas", precio: "$1.632.000" },
+            { servicio: "MSP 48 (Sábados, Domingos y Festivos)", horas: "48 horas", precio: "$3.264.000" }
+        ]
+    },
+    hogar: {
+        old: [
+            { servicio: "Musicala Hogar P CP", precio: "$72.000" },
+            { servicio: "Musicala Hogar P CI", precio: "$98.000" },
+            { servicio: "Musicala Hogar P P4", precio: "$335.000" },
+            { servicio: "Musicala Hogar P P8", precio: "$672.000" },
+            { servicio: "Musicala Hogar P P12", precio: "$954.000" },
+            { servicio: "Musicala Hogar P P24", precio: "$1.802.000" }
+        ],
+        new: [
+            { servicio: "Musicala Hogar P CP", precio: "$80.000" },
+            { servicio: "Musicala Hogar P CI", precio: "$110.000" },
+            { servicio: "Musicala Hogar P P4", precio: "$395.000" },
+            { servicio: "Musicala Hogar P P8", precio: "$750.000" },
+            { servicio: "Musicala Hogar P P12", precio: "$1.065.000" },
+            { servicio: "Musicala Hogar P P24", precio: "$2.012.000" }
+        ]
+    },
+    hogar2P: {
+        old: [
+            { servicio: "Musicala Hogar 2P CP", precio: "$102.000" },
+            { servicio: "Musicala Hogar 2P CI", precio: "$140.000" },
+            { servicio: "Musicala Hogar 2P P4", precio: "$480.000" },
+            { servicio: "Musicala Hogar 2P P8", precio: "$966.000" },
+            { servicio: "Musicala Hogar 2P P12", precio: "$1.372.000" },
+            { servicio: "Musicala Hogar 2P P24", precio: "$2.590.000" }
+        ],
+        new: [
+            { servicio: "Musicala Hogar 2P CP", precio: "$112.000" },
+            { servicio: "Musicala Hogar 2P CI", precio: "$152.000" },
+            { servicio: "Musicala Hogar 2P P4", precio: "$554.000" },
+            { servicio: "Musicala Hogar 2P P8", precio: "$1.050.000" },
+            { servicio: "Musicala Hogar 2P P12", precio: "$1.492.000" },
+            { servicio: "Musicala Hogar 2P P24", precio: "$2.816.000" }
+        ]
+    },
+    hogarG: {
+        old: [
+            { servicio: "Musicala Hogar G CP", precio: "$119.000" },
+            { servicio: "Musicala Hogar G P CI", precio: "$163.000" },
+            { servicio: "Musicala Hogar G P4", precio: "$592.000" },
+            { servicio: "Musicala Hogar G P8", precio: "$1.124.000" },
+            { servicio: "Musicala Hogar G P12", precio: "$1.598.000" },
+            { servicio: "Musicala Hogar G P24", precio: "$3.018.000" }
+        ],
+        new: [
+            { servicio: "Musicala Hogar G CP", precio: "$120.000" },
+            { servicio: "Musicala Hogar G CI", precio: "$164.000" },
+            { servicio: "Musicala Hogar G P4", precio: "$592.000" },
+            { servicio: "Musicala Hogar G P8", precio: "$1.124.000" },
+            { servicio: "Musicala Hogar G P12", precio: "$1.598.000" },
+            { servicio: "Musicala Hogar G P24", precio: "$3.018.000" }
+        ]
+    },
+    virtual: {
+        old: [
+            { servicio: "Musicala Virtual P CP", precio: "$46.000" },
+            { servicio: "Musicala Virtual P CI", precio: "$64.000" },
+            { servicio: "Musicala Virtual P P4", precio: "$214.000" },
+            { servicio: "Musicala Virtual P P8", precio: "$430.000" },
+            { servicio: "Musicala Virtual P P12", precio: "$610.000" },
+            { servicio: "Musicala Virtual P P24", precio: "$1.152.000" }
+        ],
+        new: [
+            { servicio: "Musicala Virtual P CP", precio: "$55.000" },
+            { servicio: "Musicala Virtual P CI", precio: "$75.000" },
+            { servicio: "Musicala Virtual P P4", precio: "$272.000" },
+            { servicio: "Musicala Virtual P P8", precio: "$516.000" },
+            { servicio: "Musicala Virtual P P12", precio: "$734.000" },
+            { servicio: "Musicala Virtual P P24", precio: "$1.384.000" }
+        ]
+    },
+    autoMusicala: {
+        old: [
+            { servicio: "AutoMusicala 1 Mes", precio: "$82.000" },
+            { servicio: "AutoMusicala 2 Meses", precio: "$154.000" },
+            { servicio: "AutoMusicala 3 Meses", precio: "$218.000" },
+            { servicio: "AutoMusicala 6 Meses", precio: "$412.000" },
+            { servicio: "AutoMusicala 12 Meses", precio: "$774.000" },
+        ],
+        new: [
+            { servicio: "AutoMusicala 1 Mes", precio: "$60.000" },
+            { servicio: "AutoMusicala 2 Meses", precio: "$82.000" },
+            { servicio: "AutoMusicala 3 Meses", precio: "$280.000" },
+            { servicio: "AutoMusicala 6 Meses", precio: "$564.000" },
+            { servicio: "AutoMusicala 12 Meses", precio: "$802.000" },
+        ]
+    },
+};
+
+        function showPrices(type) {
+            document.getElementById("oldStudentsBtn").classList.toggle("active", type === "old");
+            document.getElementById("newStudentsBtn").classList.toggle("active", type === "new");
+
+            Object.keys(prices).forEach(category => {
+                renderTable(`${category}Table`, prices[category][type]);
+            });
+
+            filterCategory();
+        }
+
+        function filterCategory() {
+            const filter = document.getElementById("categoryFilter").value;
+
+            Object.keys(prices).forEach(category => {
+                document.getElementById(`${category}Table`).classList.toggle("hidden", filter !== "all" && filter !== category);
+            });
+        }
+
+        function renderTable(containerId, data) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `
+                <h2 class="category-title">${containerId.replace("Table", "").replace(/([A-Z])/g, " $1").trim()}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(item => `
+                            <tr>
+                                <td>${item.servicio}</td>
+                                <td>${item.precio}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        window.onload = () => showPrices('old');
+    </script>
+</body>
+</html>
