@@ -544,8 +544,8 @@
 };
 
         function showPrices(type) {
-            document.getElementById("oldStudentsBtn").classList.toggle("active", type === "old");
             document.getElementById("newStudentsBtn").classList.toggle("active", type === "new");
+            document.getElementById("oldStudentsBtn").classList.toggle("active", type === "old");
 
             Object.keys(prices).forEach(category => {
                 renderTable(`${category}Table`, prices[category][type]);
@@ -585,7 +585,7 @@
             `;
         }
 
-        window.onload = () => showPrices('old');
+        window.onload = () => showPrices('new');
     </script>
 </body>
 </html>
